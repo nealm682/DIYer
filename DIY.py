@@ -3,12 +3,8 @@ from serpapi import GoogleSearch
 import os
 import ast
 import streamlit as st
-from dotenv import load_dotenv
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
-
-load_dotenv()
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 #NOTE TO SELF.  Past this command in the CLI to display UI: streamlit run DIY.py [ARGUMENTS]
 
