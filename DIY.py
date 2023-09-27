@@ -78,10 +78,10 @@ if acknowledgement:
 
     first_video_link = results['video_results'][0]['link']
     first_video_title = results['video_results'][0]['title']
-    first_video_thumbnail = results['video_results'][0]['thumbnail']['rich'] if results['video_results'][0]['thumbnail']['rich'] else results['video_results'][0]['thumbnail']['static']
+    first_video_thumbnail = results['video_results'][0]['thumbnail']['static']
     second_video_link = results['video_results'][1]['link']
     second_video_title = results['video_results'][1]['title']
-    second_video_thumbnail = results['video_results'][1]['thumbnail']['rich'] if results['video_results'][1]['thumbnail']['rich'] else results['video_results'][1]['thumbnail']['static']
+    second_video_thumbnail = results['video_results'][1]['thumbnail']['static']
 
     with st.sidebar:
         st.write("Here are the top 2 video results on Youtube that could be helpful:")
