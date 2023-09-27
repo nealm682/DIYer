@@ -22,6 +22,7 @@ with st.sidebar:
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
     serp_api_key = st.text_input("SerpApi API Key", key="serp_api_key", type="password")
     "[Get an Serpapi API key](https://serpapi.com/manage-api-key)"
+    st.header('Helpful Links:')
 
 # API Keys
 llm = OpenAI(openai_api_key=openai_api_key)
