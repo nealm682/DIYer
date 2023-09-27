@@ -10,11 +10,6 @@ from langchain.prompts import PromptTemplate
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
-# API Keys
-llm = OpenAI(openai_api_key=OPENAI_API_KEY)
-llm2 = OpenAI(openai_api_key=OPENAI_API_KEY)
-llm3 = OpenAI(openai_api_key=OPENAI_API_KEY)
-
 #NOTE TO SELF.  Past this command in the CLI to display UI: streamlit run DIY.py [ARGUMENTS]
 
 #app framework with text input and title
@@ -30,6 +25,10 @@ with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
 
+# API Keys
+llm = OpenAI(openai_api_key=openai_api_key)
+llm2 = OpenAI(openai_api_key=openai_api_key)
+llm3 = OpenAI(openai_api_key=openai_api_key)
 
 # Wrangle the data by assigning the topicSummary to a variable and then calling OpenAI to summarize it
 if topic:
