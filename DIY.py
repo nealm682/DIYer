@@ -23,13 +23,6 @@ with st.sidebar:
     serp_api_key = st.text_input("SerpApi API Key", key="serp_api_key", type="password")
     "[Get an Serpapi API key](https://serpapi.com/manage-api-key)"
 
-if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.  No keys will be stored.")
-        st.stop()
-
-    openai.api_key = openai_api_key
-
 # API Keys
 llm = OpenAI(openai_api_key=openai_api_key)
 llm2 = OpenAI(openai_api_key=openai_api_key)
