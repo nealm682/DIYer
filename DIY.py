@@ -24,6 +24,8 @@ first_video_link = ""
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
+    serp_api_key = st.text_input("SerpApi API Key", key="serp_api_key", type="password")
+    "[Get an Serpapi API key](https://serpapi.com/manage-api-key)"
 
 # API Keys
 llm = OpenAI(openai_api_key=openai_api_key)
@@ -69,7 +71,7 @@ if searchPhrase:
 if acknowledgement:
     # search youtube for the top video result based on main topic
     params = {
-    "api_key": "f8c64bb3fd7375cadf25a48a1e45298dbdbdce2af5563c81ac013a13d95abe61",
+    "api_key": serp_api_key,
     "engine": "youtube",
     "search_query": searchPhrase
     }
