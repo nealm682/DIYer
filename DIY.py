@@ -83,19 +83,15 @@ if acknowledgement:
     second_video_title = results['video_results'][1]['title']
     second_video_thumbnail = results['video_results'][1]['thumbnail']['static']
 
+    # Print the first video title and link
     with st.sidebar:
+        st.write("")
         st.write("Here are the top 2 video results on Youtube that could be helpful:")
         st.write(first_video_title)
         st.markdown(f'<a href="{first_video_link}" target="_blank"><img src="{first_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
         st.write(second_video_title)
         st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
 
-    # Print the first video title and link
-    #st.write("\n\n**First, here are the top 2 video result on Youtube that could be helpful:**")
-    #st.write(first_video_title)
-    #st.markdown(f'<a href="{first_video_link}" target="_blank"><img src="{first_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
-    #st.write(second_video_title)
-    #st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
 
 
 # Create a list of tools and supplies needed to complete the project
@@ -114,12 +110,13 @@ if first_video_link:
     list_of_tools = llm3.predict(formatted_prompt)
 
     arr = [item.strip() for item in list_of_tools.split(',')]
+    st.write("")
     #print out a nice numbered list of tools and supplies
-    st.write("\n\n**Here is a list of tools and supplies you will need to complete this project:**")
+    st.write("**Here is a list of tools and supplies you will need to complete this project:**")
     # add a radio button to each output in the list to select the item
     for i in range(len(arr)):
         st.write(i+1, arr[i])
-
+st.write("")
 # Ask the user for their zip code so we can search for the best prices on the tools and supplies
 if (arr):
-    zipcode = st.text_input("\n\n**I can shop around for the best prices for these supplies.  What is your zip code?**")
+    zipcode = st.text_input("**I can shop around for the best prices for these supplies.  What is your zip code?**")
