@@ -82,12 +82,19 @@ if acknowledgement:
     second_video_title = results['video_results'][1]['title']
     second_video_thumbnail = results['video_results'][1]['thumbnail']['static']
 
+    with st.sidebar:
+        st.write("Here are the top 2 video results on Youtube that could be helpful:")
+        st.write(first_video_title)
+        st.markdown(f'<a href="{first_video_link}" target="_blank"><img src="{first_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
+        st.write(second_video_title)
+        st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
+
     # Print the first video title and link
-    st.write("\n\n**First, here are the top 2 video result on Youtube that could be helpful:**")
-    st.write(first_video_title)
-    st.markdown(f'<a href="{first_video_link}" target="_blank"><img src="{first_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
-    st.write(second_video_title)
-    st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
+    #st.write("\n\n**First, here are the top 2 video result on Youtube that could be helpful:**")
+    #st.write(first_video_title)
+    #st.markdown(f'<a href="{first_video_link}" target="_blank"><img src="{first_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
+    #st.write(second_video_title)
+    #st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
 
 
 # Create a list of tools and supplies needed to complete the project
