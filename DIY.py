@@ -30,10 +30,11 @@ with st.sidebar:
 st.title('DIY Planning tool enhanced with Artificial Intelligence')
 topic = st.text_input("**What are you trying to DIY?**")
 
-# API Keys
-llm = OpenAI(openai_api_key=openai_api_key)
-llm2 = OpenAI(openai_api_key=openai_api_key)
-llm3 = OpenAI(openai_api_key=openai_api_key)
+if topic:
+    # API Keys
+    llm = OpenAI(openai_api_key=openai_api_key)
+    llm2 = OpenAI(openai_api_key=openai_api_key)
+    llm3 = OpenAI(openai_api_key=openai_api_key)
 
 # Wrangle the data by assigning the topicSummary to a variable and then calling OpenAI to summarize it
 if topic and topicComplete == False:
