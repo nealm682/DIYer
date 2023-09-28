@@ -54,7 +54,7 @@ if topic and topicComplete == False:
 if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
     # Simplify the topic into a keyword
-    summarize_youtube_template = """Acknowledge the user's {topic}.  Acknowledgement:"""
+    summarize_youtube_template = """Acknowledge the user's {topic}. Briefly explain that you are gathering resources that will help the user with their project. This will include a couple of how to videos from youtube.  And also building a short list of supplies they will need for their task. Acknowledgement:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
@@ -103,7 +103,7 @@ if acknowledgement and acknowledgementComplete == False:
 if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
-    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 10. {topic}.  array:"""
+    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 6. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
@@ -128,14 +128,15 @@ if (arr):
 
 
 # Search for the best prices on the tools and supplies
+
+             
 if zipcode:
     # Set an array variable that will hold the sum of the array product values
     total = 0
+    products_list = []
 
-    # Create a loop that will iterate through the array and call the serpapi api for each item in the array
+    # Create a loop that will iterate through the array and call the serpapi API for each item in the array
     for item in arr:
-        st.write(item)
-        
         params = {
             "engine": "home_depot",
             "q": item,  # Search each item in the array
@@ -146,22 +147,32 @@ if zipcode:
 
         search = GoogleSearch(params)
         results = search.get_dict()
-        
-        # Use .get() to avoid KeyError if "products" key is not present in results
+
         products = results.get("products", [])[0:1]  # This will give an empty list if "products" does not exist
-        
+
         for product in products:
+            thumbnail = product.get("thumbnails", [[]])[0][0]  # Get the first thumbnail
             title = product.get("title", "No title available")
-            price = product.get("price", 0)  # Assuming 0 if price is not available, adjust as needed
+            price = product.get("price", 0)
             link = product.get("link", "")
             
-            st.write(title)
-            st.write(price)
-            st.write(link + "\n")
-            
-            # Assuming price is a number, adjust as needed if it's a string
-            total += price  
+            total += round(price)
+            products_list.append({"thumbnail": thumbnail, "title": title, "price": price, "link": link})
 
-    # Print the grand total of the project
-    st.write("")
-    st.write("Grand total for all the supplies and parts will cost: $" + str(total))
+    # Display the products in a 3x3 grid
+    for i in range(0, len(products_list), 3):
+        cols = st.columns(3)
+        for j in range(3):
+            if i + j < len(products_list):
+                product = products_list[i + j]
+                # Get the highest resolution thumbnail available
+                thumbnail = product.get("thumbnails", [[]])[-1][-1]  # Get the last thumbnail
+                
+                with cols[j]:
+                    # Adjust width if necessary, remove if you want to use the original width of the thumbnail
+                    st.image(thumbnail)
+                    st.markdown(f"[{product['title']}]({product['link']})")
+                    st.write(f"${product['price']}")
+
+                    
+    st.write(f"Grand total for all the supplies and parts will cost: ${total}")
