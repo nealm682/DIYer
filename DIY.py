@@ -8,9 +8,6 @@ from langchain.prompts import PromptTemplate
 
 #NOTE TO SELF.  Past this command in the CLI to display UI: streamlit run DIY.py [ARGUMENTS]
 
-#app framework with text input and title
-st.title('DIY Planning tool enhanced with Artificial Intelligence')
-topic = st.text_input("**What are you trying to DIY?**")
 searchPhrase = ""
 acknowledgement = ""
 list_of_tools = ""
@@ -21,7 +18,6 @@ topicComplete = False
 searchPhraseComplete = False
 acknowledgementComplete = False
 first_video_linkComplete = False
-openai_api_key = "1sdkljslkdjflksjflksdjf"
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", placeholder="Enter your API key here")
@@ -29,6 +25,10 @@ with st.sidebar:
     serp_api_key = st.text_input("SerpApi API Key", key="serp_api_key", type="password")
     "[Get an Serpapi API key](https://serpapi.com/manage-api-key)"
     st.header('Helpful Links:')
+
+#app framework with text input and title
+st.title('DIY Planning tool enhanced with Artificial Intelligence')
+topic = st.text_input("**What are you trying to DIY?**")
 
 # API Keys
 llm = OpenAI(openai_api_key=openai_api_key)
