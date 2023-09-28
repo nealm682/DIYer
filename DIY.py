@@ -16,6 +16,7 @@ acknowledgement = ""
 list_of_tools = ""
 arr = []
 first_video_link = ""
+zipcode = ""
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", placeholder="Enter your API key here")
@@ -120,3 +121,18 @@ st.write("")
 # Ask the user for their zip code so we can search for the best prices on the tools and supplies
 if (arr):
     zipcode = st.text_input("**I can shop around for the best prices for these supplies.  What is your zip code?**")
+
+
+# Search for the best prices on the tools and supplies
+if (zipcode):
+    # If the zip code is invalid, or if the user says no, then we will not search for the best prices
+    if (zipcode == "00000"):
+        st.write("Sorry, that is not a valid zip code.  Please try again.")
+    elif (zipcode == "no" or "no thanks"):
+        st.write("Ok, I will not search for the best prices.")
+    else:
+        st.write("Ok, I will search for the best prices on these tools and supplies.  Please wait a moment.")
+        # Prompt Templates
+        
+        
+
