@@ -17,6 +17,10 @@ list_of_tools = ""
 arr = []
 first_video_link = ""
 zipcode = ""
+topicComplete = False
+searchPhraseComplete = False
+acknowledgementComplete = False
+first_video_linkComplete = False
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", placeholder="Enter your API key here")
@@ -31,7 +35,7 @@ llm2 = OpenAI(openai_api_key=openai_api_key)
 llm3 = OpenAI(openai_api_key=openai_api_key)
 
 # Wrangle the data by assigning the topicSummary to a variable and then calling OpenAI to summarize it
-if topic:
+if topic and topicComplete == False:
     # Prompt Templates
     # Simplify the topic into a keyword
     summarize_youtube_template = """Summarize this topic into the most optimal Youtube search phrase. Context: {topic}  Youtube Search Phrase:"""
@@ -47,7 +51,7 @@ if topic:
 
 
 # Acknowledge the user's reason for visiting.  Let them know you will be helping them with the project as an assistant.
-if searchPhrase:
+if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
     # Simplify the topic into a keyword
     summarize_youtube_template = """Acknowledge the user's {topic}.  Acknowledgement:"""
@@ -66,7 +70,7 @@ if searchPhrase:
     st.write("")
 
 # Search Youtube for relevant videos based on the topic.  I'm selecting the first index of the array
-if acknowledgement:
+if acknowledgement and acknowledgementComplete == False:
     # search youtube for the top video result based on main topic
     params = {
     "api_key": serp_api_key,
@@ -96,7 +100,7 @@ if acknowledgement:
 
 
 # Create a list of tools and supplies needed to complete the project
-if first_video_link:
+if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
     tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 10. {topic}.  array:"""
@@ -124,15 +128,40 @@ if (arr):
 
 
 # Search for the best prices on the tools and supplies
-if (zipcode):
-    # If the zip code is invalid, or if the user says no, then we will not search for the best prices
-    if (zipcode == "00000"):
-        st.write("Sorry, that is not a valid zip code.  Please try again.")
-    elif (zipcode == "no" or "no thanks"):
-        st.write("Ok, I will not search for the best prices.")
-    else:
-        st.write("Ok, I will search for the best prices on these tools and supplies.  Please wait a moment.")
-        # Prompt Templates
-        
-        
+if zipcode:
+    # Set an array variable that will hold the sum of the array product values
+    total = 0
 
+    # Create a loop that will iterate through the array and call the serpapi api for each item in the array
+    for item in arr:
+        st.write(item)
+        
+        params = {
+            "engine": "home_depot",
+            "q": item,  # Search each item in the array
+            "api_key": serp_api_key,  # Replace with your actual SerpAPI key
+            "country": "us",
+            "delivery_zip": zipcode  # Adjust as needed
+        }
+
+        search = GoogleSearch(params)
+        results = search.get_dict()
+        
+        # Use .get() to avoid KeyError if "products" key is not present in results
+        products = results.get("products", [])[0:1]  # This will give an empty list if "products" does not exist
+        
+        for product in products:
+            title = product.get("title", "No title available")
+            price = product.get("price", 0)  # Assuming 0 if price is not available, adjust as needed
+            link = product.get("link", "")
+            
+            st.write(title)
+            st.write(price)
+            st.write(link + "\n")
+            
+            # Assuming price is a number, adjust as needed if it's a string
+            total += price  
+
+    # Print the grand total of the project
+    st.write("")
+    st.write("Grand total for all the supplies and parts will cost: $" + str(total))
