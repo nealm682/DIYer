@@ -21,7 +21,7 @@ topicComplete = False
 searchPhraseComplete = False
 acknowledgementComplete = False
 first_video_linkComplete = False
-openai_api_key = "1"
+openai_api_key = "1sdkljslkdjflksjflksdjf"
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", placeholder="Enter your API key here")
