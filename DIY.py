@@ -32,7 +32,7 @@ with st.sidebar:
     st.header('Helpful Links:')
 
 #Main page title and input box to start the app
-st.title('DIY Planning tool enhanced with Artificial Intelligence')
+st.title('Generative AI Planning Tool for DIYers')
 st.write("This app will help you plan your DIY project.  It will help you find the best resources to help you complete your project.  It will also help you find the best prices on the tools and supplies you will need to complete your project.")
 st.write("")
 st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API key from both places.  Just click on the links in the sidebar to get your API keys.")   
