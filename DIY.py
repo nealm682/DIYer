@@ -115,7 +115,7 @@ if acknowledgement and acknowledgementComplete == False:
 if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
-    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 3. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
+    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 9. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
