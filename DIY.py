@@ -34,6 +34,8 @@ with st.sidebar:
 #Main page title and input box to start the app
 st.title('DIY Planning tool enhanced with Artificial Intelligence')
 st.write("This app will help you plan your DIY project.  It will help you find the best resources to help you complete your project.  It will also help you find the best prices on the tools and supplies you will need to complete your project.")
+st.write("")
+st.write("This app requires an API key from 2 places. OpenAI and SerpAPI.  You can get a free API key from both places.  Just click on the links in the sidebar to get your API keys.  Once you have your API keys, enter them in the sidebar and click on the button below to start the app.")
 topic = st.text_input("**What are you trying to DIY?**")
 
 # Initiate API keys only if the user has entered a topic
