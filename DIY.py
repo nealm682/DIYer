@@ -8,17 +8,22 @@ from langchain.prompts import PromptTemplate
 
 #NOTE TO SELF.  Past this command in the CLI to display UI: streamlit run DIY.py [ARGUMENTS]
 
+# Declare variables to be used later
 searchPhrase = ""
 acknowledgement = ""
 list_of_tools = ""
 arr = []
 first_video_link = ""
 zipcode = ""
+
+# Declare state variables to control the flow of the app
 topicComplete = False
 searchPhraseComplete = False
 acknowledgementComplete = False
 first_video_linkComplete = False
 
+
+# Set the sidebar to take in the API keys.  This will be used to call the API's
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", placeholder="Enter your API key here")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
@@ -26,20 +31,23 @@ with st.sidebar:
     "[Get an Serpapi API key](https://serpapi.com/manage-api-key)"
     st.header('Helpful Links:')
 
-#app framework with text input and title
+#Main page title and input box to start the app
 st.title('DIY Planning tool enhanced with Artificial Intelligence')
+st.write("This app will help you plan your DIY project.  It will help you find the best resources to help you complete your project.  It will also help you find the best prices on the tools and supplies you will need to complete your project.")
 topic = st.text_input("**What are you trying to DIY?**")
 
+# Initiate API keys only if the user has entered a topic
 if topic:
     # API Keys
     llm = OpenAI(openai_api_key=openai_api_key)
     llm2 = OpenAI(openai_api_key=openai_api_key)
     llm3 = OpenAI(openai_api_key=openai_api_key)
 
-# Wrangle the data by assigning the topicSummary to a variable and then calling OpenAI to summarize it
+
+# Summarize the topic into a keyword phrase video search for Youtube
 if topic and topicComplete == False:
-    # Prompt Templates
-    # Simplify the topic into a keyword
+    # Prompt Template summarize_youtube_template  
+    # Simplify the topic into a keyword phrase
     summarize_youtube_template = """Summarize this topic into the most optimal Youtube search phrase. Context: {topic}  Youtube Search Phrase:"""
 
     prompt = PromptTemplate(
