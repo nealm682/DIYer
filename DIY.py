@@ -66,7 +66,7 @@ if topic and topicComplete == False:
 if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
     # Simplify the topic into a keyword
-    summarize_youtube_template = """Acknowledge the user's {topic}. Briefly explain that you are gathering resources that will help the user with their project. This will include a couple of how to videos from youtube.  And also building a short list of supplies they will need for their task. Acknowledgement:"""
+    summarize_youtube_template = """Acknowledge the user's {topic} with interest.  Be excited to help the user accomplish their goal. Briefly explain that you are gathering resources that will help the user with their project. This will include a couple of how to videos from youtube.  And also building a short list of supplies they will need for their task. Acknowledgement:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
@@ -115,7 +115,7 @@ if acknowledgement and acknowledgementComplete == False:
 if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
-    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 9. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
+    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 6. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
