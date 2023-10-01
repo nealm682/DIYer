@@ -136,7 +136,7 @@ if first_video_link and not st.session_state.first_video_linkComplete:
 #if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
-    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 1. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
+    tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 2. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
 
     prompt = PromptTemplate(
         input_variables = ['topic'],
@@ -164,28 +164,26 @@ if (arr):
 
              
 if zipcode:
-    # Set an array variable that will hold the sum of the array product values
     total = 0
     products_list = []
 
-    # Create a loop that will iterate through the array and call the serpapi API for each item in the array
     for item in arr:
         params = {
             "engine": "home_depot",
-            "q": item,  # Search each item in the array
-            "api_key": serp_api_key,  # Replace with your actual SerpAPI key
+            "q": item,
+            "api_key": serp_api_key,
             "country": "us",
-            "delivery_zip": zipcode  # Adjust as needed
+            "delivery_zip": zipcode
         }
 
         search = GoogleSearch(params)
         results = search.get_dict()
 
-        products = results.get("products", [])[0:1]  # This will give an empty list if "products" does not exist
+        products = results.get("products", [])[0:1]
 
         for product in products:
             thumbnails = product.get("thumbnails", [])
-            thumbnail = thumbnails[0][0] if thumbnails and thumbnails[0] else "url-to-a-default-thumbnail-image"  # Provide a URL to a default image if no thumbnail is available
+            thumbnail = thumbnails[0][0] if thumbnails and thumbnails[0] else "url-to-a-default-thumbnail-image" 
             title = product.get("title", "No title available")
             price = product.get("price", 0)
             link = product.get("link", "")
@@ -193,17 +191,13 @@ if zipcode:
             total += round(price)
             products_list.append({"thumbnail": thumbnail, "title": title, "price": price, "link": link})
 
-    # Display the products in a 3x3 grid
     for i in range(0, len(products_list), 3):
         cols = st.columns(3)
         for j in range(3):
             if i + j < len(products_list):
                 product = products_list[i + j]
-                thumbnails = product.get("thumbnails", [])
-                thumbnail = thumbnails[-1][-1] if thumbnails and thumbnails[-1] else "url-to-a-default-thumbnail-image"  # Provide a URL to a default image if no thumbnail is available
-                
                 with cols[j]:
-                    st.image(thumbnail)
+                    st.image(product['thumbnail'])
                     st.markdown(f"[{product['title']}]({product['link']})")
                     st.write(f"${product['price']}")
     
