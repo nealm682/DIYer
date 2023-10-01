@@ -22,12 +22,7 @@ searchPhraseComplete = False
 acknowledgementComplete = False
 first_video_linkComplete = False
 
-# Initiate API keys only if the user has entered a topic
-if topic:
-    # API Keys
-    llm = OpenAI(openai_api_key=openai_api_key)
-    llm2 = OpenAI(openai_api_key=openai_api_key)
-    llm3 = OpenAI(openai_api_key=openai_api_key)
+
 
 # Set the sidebar to take in the API keys.  This will be used to call the API's
 with st.sidebar:
@@ -45,6 +40,12 @@ st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API k
 topic = st.text_input("**What are you trying to DIY?**")
 
 
+# Initiate API keys only if the user has entered a topic
+if topic:
+    # API Keys
+    llm = OpenAI(openai_api_key=openai_api_key)
+    llm2 = OpenAI(openai_api_key=openai_api_key)
+    llm3 = OpenAI(openai_api_key=openai_api_key)
 
 
 # Summarize the topic into a keyword phrase video search for Youtube
