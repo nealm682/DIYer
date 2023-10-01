@@ -39,7 +39,8 @@ st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API k
 topic = st.text_input("**What are you trying to DIY?**")
 
 # Initiate API keys only if the user has entered a topic
-if topic:
+if topic not in st.session_state:
+    st.session_state.topicComplete = False  # If not, initialize it
     # API Keys
     llm = OpenAI(openai_api_key=openai_api_key)
     llm2 = OpenAI(openai_api_key=openai_api_key)
@@ -47,7 +48,9 @@ if topic:
 
 
 # Summarize the topic into a keyword phrase video search for Youtube
-if topic and topicComplete == False:
+if topic not in st.session_state:
+    st.session_state.topicComplete = False  # If not, initialize it
+#if topic and topicComplete == False:
     # Prompt Template summarize_youtube_template  
     # Simplify the topic into a keyword phrase
     summarize_youtube_template = """Summarize this topic into the most optimal Youtube search phrase. Context: {topic}  Youtube Search Phrase:"""
@@ -63,7 +66,9 @@ if topic and topicComplete == False:
 
 
 # Acknowledge the user's reason for visiting.  Let them know you will be helping them with the project as an assistant.
-if searchPhrase and searchPhraseComplete == False:
+if searchPhrase not in st.session_state:
+    st.session_state.searchPhraseComplete = False  # If not, initialize it
+#if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
     # Simplify the topic into a keyword
     summarize_youtube_template = """Acknowledge the user's {topic} with interest.  Be excited to help the user accomplish their goal. Briefly explain that you are gathering resources that will help the user with their project. This will include a couple of how to videos from youtube.  And also building a short list of supplies they will need for their task. Acknowledgement:"""
@@ -82,7 +87,9 @@ if searchPhrase and searchPhraseComplete == False:
     st.write("")
 
 # Search Youtube for relevant videos based on the topic.  I'm selecting the first index of the array
-if acknowledgement and acknowledgementComplete == False:
+if acknowledgement not in st.session_state:
+    st.session_state.acknowledgementComplete = False  # If not, initialize it
+#if acknowledgement and acknowledgementComplete == False:
     # search youtube for the top video result based on main topic
     params = {
     "api_key": serp_api_key,
@@ -110,9 +117,10 @@ if acknowledgement and acknowledgementComplete == False:
         st.markdown(f'<a href="{second_video_link}" target="_blank"><img src="{second_video_thumbnail}" alt="Thumbnail" style="width:200px;height:150px;"></a>', unsafe_allow_html=True)
 
 
-
 # Create a list of tools and supplies needed to complete the project
-if first_video_link and first_video_linkComplete == False:
+if first_video_link not in st.session_state:
+    st.session_state.first_video_linkComplete = False  # If not, initialize it
+#if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
     tools_template = """Generate a list of parts, supplies and necessary tools required to complete the following topic. Only reply with an array. No need to add titles or numbers. Limit it to a maximum list of 1. List them highest priority.  Meaning, if they are installing equipment list the equipment as top of the list. People are more likely to have a screw driver, so list that at the bottom. {topic}.  array:"""
