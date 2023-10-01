@@ -39,8 +39,7 @@ st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API k
 topic = st.text_input("**What are you trying to DIY?**")
 
 # Initiate API keys only if the user has entered a topic
-if topic not in st.session_state:
-    st.session_state.topicComplete = False  # If not, initialize it
+if topic
     # API Keys
     llm = OpenAI(openai_api_key=openai_api_key)
     llm2 = OpenAI(openai_api_key=openai_api_key)
