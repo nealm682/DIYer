@@ -40,8 +40,20 @@ st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API k
 topic = st.text_input("**What are you trying to DIY?**")
 
 
+
+if 'topicComplete' not in st.session_state:
+    st.session_state.topicComplete = False  # If not, initialize it
+if 'searchPhraseComplete' not in st.session_state:
+    st.session_state.searchPhraseComplete = False  # If not, initialize it
+if 'acknowledgementComplete' not in st.session_state:
+    st.session_state.acknowledgementComplete = False  # If not, initialize it
+if 'first_video_linkComplete' not in st.session_state:
+    st.session_state.first_video_linkComplete = False  # If not, initialize it
+
+
+
 # Initiate API keys only if the user has entered a topic
-if topic:
+if topic and not st.session_state.topicComplete:
     # API Keys
     llm = OpenAI(openai_api_key=openai_api_key)
     llm2 = OpenAI(openai_api_key=openai_api_key)
@@ -49,8 +61,7 @@ if topic:
 
 
 # Summarize the topic into a keyword phrase video search for Youtube
-if topic not in st.session_state:
-    st.session_state.topicComplete = False  # If not, initialize it
+if topic and not st.session_state.topicComplete:
 #if topic and topicComplete == False:
     # Prompt Template summarize_youtube_template  
     # Simplify the topic into a keyword phrase
@@ -69,8 +80,7 @@ if topic not in st.session_state:
 
 
 # Acknowledge the user's reason for visiting.  Let them know you will be helping them with the project as an assistant.
-if searchPhrase not in st.session_state:
-    st.session_state.searchPhraseComplete = False  # If not, initialize it
+if searchPhrase and not st.session_state.searchPhraseComplete:
     llm2 = OpenAI(openai_api_key=openai_api_key)
 #if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
@@ -91,8 +101,7 @@ if searchPhrase not in st.session_state:
     st.write("")
 
 # Search Youtube for relevant videos based on the topic.  I'm selecting the first index of the array
-if acknowledgement not in st.session_state:
-    st.session_state.acknowledgementComplete = False  # If not, initialize it
+if acknowledgement and not st.session_state.acknowledgementComplete:
 #if acknowledgement and acknowledgementComplete == False:
     # search youtube for the top video result based on main topic
     params = {
@@ -122,8 +131,7 @@ if acknowledgement not in st.session_state:
 
 
 # Create a list of tools and supplies needed to complete the project
-if first_video_link not in st.session_state:
-    st.session_state.first_video_linkComplete = False  # If not, initialize it
+if first_video_link and not st.session_state.first_video_linkComplete:
     llm3 = OpenAI(openai_api_key=openai_api_key)
 #if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
