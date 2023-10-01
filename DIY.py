@@ -38,12 +38,7 @@ st.write("")
 st.write("2 API keys are required. OpenAI and SerpAPI.  You can get a free API key from both places.  Just click on the links in the sidebar to get your API keys.")   
 topic = st.text_input("**What are you trying to DIY?**")
 
-# Initiate API keys only if the user has entered a topic
-if topic:
-    # API Keys
-    llm = OpenAI(openai_api_key=openai_api_key)
-    llm2 = OpenAI(openai_api_key=openai_api_key)
-    llm3 = OpenAI(openai_api_key=openai_api_key)
+
 
 
 # Summarize the topic into a keyword phrase video search for Youtube
@@ -52,6 +47,8 @@ if topic not in st.session_state:
 #if topic and topicComplete == False:
     # Prompt Template summarize_youtube_template  
     # Simplify the topic into a keyword phrase
+    # API Keys
+    llm = OpenAI(openai_api_key=openai_api_key)
     summarize_youtube_template = """Summarize this topic into the most optimal Youtube search phrase. Context: {topic}  Youtube Search Phrase:"""
 
     prompt = PromptTemplate(
@@ -67,6 +64,7 @@ if topic not in st.session_state:
 # Acknowledge the user's reason for visiting.  Let them know you will be helping them with the project as an assistant.
 if searchPhrase not in st.session_state:
     st.session_state.searchPhraseComplete = False  # If not, initialize it
+    llm2 = OpenAI(openai_api_key=openai_api_key)
 #if searchPhrase and searchPhraseComplete == False:
  # Prompt Templates
     # Simplify the topic into a keyword
@@ -119,6 +117,7 @@ if acknowledgement not in st.session_state:
 # Create a list of tools and supplies needed to complete the project
 if first_video_link not in st.session_state:
     st.session_state.first_video_linkComplete = False  # If not, initialize it
+    llm3 = OpenAI(openai_api_key=openai_api_key)
 #if first_video_link and first_video_linkComplete == False:
      # Prompt Templates
     # Simplify the topic into a keyword
