@@ -22,6 +22,12 @@ searchPhraseComplete = False
 acknowledgementComplete = False
 first_video_linkComplete = False
 
+# Initiate API keys only if the user has entered a topic
+if topic:
+    # API Keys
+    llm = OpenAI(openai_api_key=openai_api_key)
+    llm2 = OpenAI(openai_api_key=openai_api_key)
+    llm3 = OpenAI(openai_api_key=openai_api_key)
 
 # Set the sidebar to take in the API keys.  This will be used to call the API's
 with st.sidebar:
