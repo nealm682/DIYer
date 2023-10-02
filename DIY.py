@@ -13,6 +13,7 @@ searchPhrase = ""
 acknowledgement = ""
 list_of_tools = ""
 arr = []
+selected_item = []
 first_video_link = ""
 zipcode = ""
 
