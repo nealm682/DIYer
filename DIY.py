@@ -151,6 +151,8 @@ if first_video_link and not st.session_state.first_video_linkComplete:
     st.write("")
     #print out a nice numbered list of tools and supplies
     st.write("**Here is a list of tools and supplies you will need to complete this project:**")
+    st.markdown('## This is an H2 Sized Header')
+    st.markdown('### This is an H3 Sized Header')
     # add a radio button to each output in the list to select the item
     for i in range(len(arr)):
         st.write(i+1, arr[i])
