@@ -153,7 +153,7 @@ if first_video_link and not st.session_state.first_video_linkComplete:
     st.write("**Here is a list of tools and supplies you will need to complete this project:**")
 
     # display radio buttons for each item in the list and store the selected item in a variable
-    selected_item = st.radio("Select the item you want to buy", arr)
+    selected_item = st.multiselect("Select the item you want to buy", arr)
     st.write("You selected: ", selected_item)
 
 
@@ -173,7 +173,7 @@ if zipcode:
     total = 0
     products_list = []
 
-    for item in arr:
+    for item in selected_item:
         params = {
             "engine": "home_depot",
             "q": item,
