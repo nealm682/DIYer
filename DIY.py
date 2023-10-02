@@ -152,12 +152,17 @@ if first_video_link and not st.session_state.first_video_linkComplete:
     #print out a nice numbered list of tools and supplies
     st.write("**Here is a list of tools and supplies you will need to complete this project:**")
 
+    # display radio buttons for each item in the list and store the selected item in a variable
+    selected_item = st.radio("Select the item you want to buy", arr)
+    st.write("You selected: ", selected_item)
+
+
     # add a radio button to each output in the list to select the item
-    for i in range(len(arr)):
-        st.write(i+1, arr[i])
+    #for i in range(len(arr)):
+    #    st.write(i+1, arr[i])
 st.write("")
 # Ask the user for their zip code so we can search for the best prices on the tools and supplies
-if (arr):
+if (selected_item):
     zipcode = st.text_input("**I can shop around for the best prices for these supplies.  What is your zip code?**")
 
 
